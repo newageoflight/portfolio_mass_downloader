@@ -51,12 +51,12 @@ class PortfolioCrawler(Crawler):
 		catnums = [int(i.attrs["id"].strip("numCatHTML")) for i in divs]
 		# skip 17 (uncategorised) as there doesn't seem to be anything in it
 		catnums = [i for i in catnums if i not in set([5, 17])]
-		cat_progress = tqdm(catnums, position=0)
+		cat_progress = tqdm(catnums, position=0, ascii=True)
 		for cat in cat_progress:
 			cat_progress.set_description(f"Now processing '{self.emed_cats[cat]}'")
 			self.navigate(urljoin(self.url, "/Portfolio.nsf/ViewAgent?OpenAgent&view=MySubsByType&entryNum={0}&showCollapse=&restrictToCategory=".format(cat)))
 			links = set([a.attrs["href"] for a in self.current_page.html.find("a")])
-			links_progress = tqdm(links, position=1, leave=False)
+			links_progress = tqdm(links, position=1, leave=False, ascii=True)
 			for l in links_progress:
 				self.navigate(urljoin(self.url, l+"&AutoFramed&BaseTarget=NotesView"))
 				title = self.current_page.html.xpath("//td[contains(.,'Title')]/following-sibling::*", first=True).text
