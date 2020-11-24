@@ -4,7 +4,7 @@ from tqdm import tqdm
 from urllib.parse import urljoin
 
 from .base import Crawler
-from .utils import make_valid_windows_filename, mass_download_url_list, write_dict_as_csv
+from .utils import make_valid_windows_filename, mass_download_url_list, uniq, write_dict_as_csv
 
 import os
 import json
@@ -61,14 +61,15 @@ class PortfolioCrawler(Crawler):
 				self.navigate(urljoin(self.url, l+"&AutoFramed&BaseTarget=NotesView"))
 				title = self.current_page.html.xpath("//td[contains(.,'Title')]/following-sibling::*", first=True).text
 				links_progress.set_description(title)
-				file_dl_link = self.current_page.html.find("a")[2]
-				dl_path = urljoin(self.url, file_dl_link.attrs["href"])
+				file_dl_links = self.current_page.html.find("a")[2:]
 				save_folder = os.path.join("downloaded", 
 					make_valid_windows_filename(self.emed_cats[cat]),
 					make_valid_windows_filename(title))
-				Path(save_folder).mkdir(parents=True, exist_ok=True)
-				save_path = os.path.join(save_folder, file_dl_link.text)
-				download_paths.append((save_path, dl_path))
+				for file_dl_link in file_dl_links:
+					dl_path = urljoin(self.url, file_dl_link.attrs["href"])
+					Path(save_folder).mkdir(parents=True, exist_ok=True)
+					save_path = os.path.join(save_folder, file_dl_link.text)
+					download_paths.append((save_path, dl_path))
 				# get metadata as a json file
 				csv_path = os.path.join(save_folder, "metadata.csv")
 				metadata = dict()
@@ -76,14 +77,15 @@ class PortfolioCrawler(Crawler):
 					# why tf do you have to do this, like seriously can't requests_html get their shit together already
 					tds = data_row.xpath("./*/td")
 					# i prefer to use a continue statement here but it screws up tqdm if you do
+					# nope tqdm is still fucked
 					if len(tds) == 2:
 						k_cell, v_cell = tds
 						k = k_cell.text.strip()
 						v = v_cell.text.strip()
 						if k.lower() != "assessment file":
 							metadata[k] = v
-				# print(metadata)
 				write_dict_as_csv(metadata, csv_path)
+		download_paths = uniq(download_paths)
 		with open("dl_list.txt", "w") as dl_ofp:
 			for save_path, dl_url in download_paths:
 				print(save_path, dl_url, file=dl_ofp)

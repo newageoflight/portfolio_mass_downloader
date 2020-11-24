@@ -50,3 +50,10 @@ def mass_download_url_list(url_list: "list[tuple[str, str]]", session=None):
         session = requests.session()
     dl_func = partial(download_url, session=session)
     return list(tqdm(ThreadPool(8).imap_unordered(dl_func, url_list), total=len(url_list)))
+
+def uniq(seq):
+    """
+    Based on speed optimisations from here:
+    https://www.peterbe.com/plog/fastest-way-to-uniquify-a-list-in-python-3.6
+    """
+    return list(dict.fromkeys(seq))

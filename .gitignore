@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+python38.dll
 
 # C extensions
 *.so
@@ -141,3 +142,4 @@ cython_debug/
 login_settings.json
 downloaded/
 dl_list.txt
+
