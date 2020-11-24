@@ -140,3 +140,4 @@ cython_debug/
 # User files
 login_settings.json
 downloaded/
+dl_list.txt
