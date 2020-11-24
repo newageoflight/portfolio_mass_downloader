@@ -12,5 +12,5 @@ if __name__ == "__main__":
         with open("login_settings.json", "w") as ofp:
             json.dump(my_settings, ofp)
     pc = PortfolioCrawler()
-    with pc, open("dl_list.txt") as dl_ifp:
+    with pc as dl_ifp:
         pc.download_all()
