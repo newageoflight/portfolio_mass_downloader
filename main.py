@@ -14,5 +14,3 @@ if __name__ == "__main__":
     pc = PortfolioCrawler()
     with pc, open("dl_list.txt") as dl_ifp:
         pc.download_all()
-        # dl_items = [tuple(l.strip().split("\t")) for l in dl_ifp.readlines()]
-        # pc.mass_download_url_list(dl_items)

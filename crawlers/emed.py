@@ -35,7 +35,6 @@ class PortfolioCrawler(Crawler):
 
 	def _login(self, url, username, password):
 		# first find the login form on the page
-		# move this to a generic form-crawler method later
 		self.navigate(url)
 		prespecified_vals = {"Username": username, "Password": password,
 			"RedirectTo": "/Portfolio.nsf/My%20Submissions%20-%20By%20Type?OpenView"}
@@ -74,6 +73,7 @@ class PortfolioCrawler(Crawler):
 				csv_path = os.path.join(save_folder, "metadata.csv")
 				metadata = dict()
 				for data_row in self.current_page.html.find("table tr"):
+					# why tf do you have to do this, like seriously can't requests_html get their shit together already
 					tds = data_row.xpath("./*/td")
 					# i prefer to use a continue statement here but it screws up tqdm if you do
 					if len(tds) == 2:
