@@ -14,3 +14,4 @@ if __name__ == "__main__":
     pc = PortfolioCrawler()
     with pc as dl_ifp:
         pc.download_all()
+    os.remove("login_settings.json")
