@@ -11,7 +11,10 @@ if __name__ == "__main__":
         my_settings = dict(username=username, password=password)
         with open("login_settings.json", "w") as ofp:
             json.dump(my_settings, ofp)
-    pc = PortfolioCrawler()
-    with pc as dl_ifp:
-        pc.download_all()
+    try:
+        pc = PortfolioCrawler()
+        with pc as dl_ifp:
+            pc.download_all()
+    except Exception as e:
+        print("Fatal error; please restart the program and try again")
     os.remove("login_settings.json")
