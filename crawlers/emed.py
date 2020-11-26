@@ -15,13 +15,17 @@ class PortfolioCrawler(Crawler):
 	"""
 	emed_cats = {
 		1: "Assignment",
+		2: "Category 2",
+		3: "Category 3",
 		4: "Evidence of Achievement",
 		5: "Exempted Assignment",
 		6: "Group Project",
 		7: "ILP",
 		8: "Learning Plan",
 		9: "Negotiated Assignment",
+		10: "Category 10",
 		11: "Portfolio Examination",
+		12: "Category 12",
 		13: "Report",
 		14: "Supplementary Assignment",
 		15: "Supportive Evidence",
