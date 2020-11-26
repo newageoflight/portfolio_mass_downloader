@@ -51,13 +51,13 @@ class PortfolioCrawler(Crawler):
 		# expand all is too slow so just query them individually
 		download_paths = []
 		self.navigate(urljoin(self.url, "/Portfolio.nsf/ViewAgent?OpenAgent&view=MySubsByType&entryNum=0&showCollapse=&restrictToCategory="))
-		divs = self.current_page.html.find("div[id^='numCat']")
-		catnums = [int(i.attrs["id"].strip("numCatHTML")) for i in divs]
+		numcatdivs = self.current_page.html.find("div[id^='numCat']")
+		catnums = [int(i.attrs.get("id", "-1").strip("numCatHTML")) for i in numcatdivs]
 		# skip 17 (uncategorised) as there doesn't seem to be anything in it
-		catnums = [i for i in catnums if i not in set([5, 17])]
+		catnums = [i for i in catnums if i not in set([5, 17, -1])]
 		cat_progress = tqdm(catnums, position=0)
 		for cat in cat_progress:
-			cat_progress.set_description(f"Now processing '{self.emed_cats[cat]}'")
+			cat_progress.set_description(f"Now processing '{self.emed_cats.get(cat, 'Category {0}'.format(cat))}'")
 			self.navigate(urljoin(self.url, "/Portfolio.nsf/ViewAgent?OpenAgent&view=MySubsByType&entryNum={0}&showCollapse=&restrictToCategory=".format(cat)))
 			links = set([a.attrs["href"] for a in self.current_page.html.find("a")])
 			links_progress = tqdm(links, position=1, leave=False)
