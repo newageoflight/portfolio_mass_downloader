@@ -15,6 +15,10 @@ def make_valid_windows_filename(s):
     return re.sub(r"[^\w\-_\. ]", "_", s)
 
 def write_dict_as_csv(d, outfile_dest):
+    # sometimes it fails to create the save path in the main function, so create it here again just for safety
+    if not os.path.exists(outfile_dest):
+        if not os.path.exists(os.path.dirname(outfile_dest)):
+            Path(os.path.dirname(outfile_dest)).mkdir(parents=True, exist_ok=True)
     with open(outfile_dest, "w") as ofp:
         writer = csv.writer(ofp)
         for k, v in d.items():
