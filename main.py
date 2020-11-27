@@ -13,7 +13,7 @@ if __name__ == "__main__":
             json.dump(my_settings, ofp)
     try:
         pc = PortfolioCrawler()
-        with pc as dl_ifp:
+        with pc:
             pc.download_all()
     except Exception as e:
         print("Fatal error; please restart the program and try again")
