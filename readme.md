@@ -14,9 +14,10 @@ I've only tested it on my own computer with my own account so it might still be 
 
 ## Instructions for building from source
 
-1. Download and install Python 3.8.5
-2. Clone this repository from Github
-3. Navigate to the containing folder in the terminal
+1. Download and install [Python 3.8.5](https://www.python.org/downloads/release/python-385/)
+    - On Windows, you will also need to install [Git](https://git-scm.com/downloads)
+2. Clone this repository from Github: `git clone https://github.com/newageoflight/portfolio_mass_downloader.git`
+3. Navigate to the containing folder in the terminal: `cd portfolio_mass_downloader`
 4. Create a new virtual environment in the code folder:
     - On Windows: `python -m venv .env`
     - On Mac: `python3 -m venv .env`
