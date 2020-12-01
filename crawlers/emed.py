@@ -6,6 +6,7 @@ from urllib.parse import urljoin
 from .base import Crawler
 from .utils import make_valid_windows_filename, mass_download_url_list, uniq, write_dict_as_csv
 
+import re
 import os
 import json
 
@@ -65,7 +66,7 @@ class PortfolioCrawler(Crawler):
 				self.navigate(urljoin(self.url, l+"&AutoFramed&BaseTarget=NotesView"))
 				title = self.current_page.html.xpath("//td[contains(.,'Title')]/following-sibling::*", first=True).text
 				links_progress.set_description(title.replace("\n", ""))
-				file_dl_links = [a for a in self.current_page.html.find("a")[2:] if a.attrs.get("href", "").lower().startswith("/portfolio")]
+				file_dl_links = [a for a in self.current_page.html.find("a")[2:] if re.match(r"^/?portfolio", a.attrs.get("href", "").lower())]
 				save_folder = os.path.join("downloaded", 
 					make_valid_windows_filename(self.emed_cats[cat]),
 					make_valid_windows_filename(title))
