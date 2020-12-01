@@ -66,7 +66,7 @@ class PortfolioCrawler(Crawler):
 				self.navigate(urljoin(self.url, l+"&AutoFramed&BaseTarget=NotesView"))
 				title = self.current_page.html.xpath("//td[contains(.,'Title')]/following-sibling::*", first=True).text
 				links_progress.set_description(title.replace("\n", ""))
-				file_dl_links = [a for a in self.current_page.html.find("a")[2:] if re.match(r"^/?portfolio", a.attrs.get("href", "").lower())]
+				file_dl_links = [a for a in self.current_page.html.find("a") if re.match(r"^/?portfolio", a.attrs.get("href", "").lower())]
 				save_folder = os.path.join("downloaded", 
 					make_valid_windows_filename(self.emed_cats[cat]),
 					make_valid_windows_filename(title))
