@@ -31,5 +31,7 @@ I've only tested it on my own computer with my own account so it might still be 
     - On Mac or Linux: `pip3 install -r requirements.txt` or `pip install -r requirements.txt`
 7. Run pyinstaller: `pyinstaller -i unswmed.ico --onefile main.py --name portfolio-mass-dl`
 8. A binary executable named `portfolio-mass-dl` should be ready under the `/dist` directory.
-    - To run it on Mac or Linux, navigate to the containing directory (`cd dist`) and give it permission to run first (`chmod +x portfolio-mass-dl`). Then you should be able to start it (`./portfolio-mass-dl`)
+    - To run it on Mac or Linux, navigate to the containing directory (`cd dist`) and give it permission to run first (`chmod +x portfolio-mass-dl`).
+    - For Mac you will need to sign the code: `codesign -s "Certificate" portfolio-mass-dl`
+    - Then you should be able to start it (`./portfolio-mass-dl`)
 9. Deactivate the virtual environment: `deactivate`
