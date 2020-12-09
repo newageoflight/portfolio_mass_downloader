@@ -35,3 +35,9 @@ I've only tested it on my own computer with my own account so it might still be 
     - For Mac you will need to sign the code: `codesign -s "-" portfolio-mass-dl`
     - Then you should be able to start it (`./portfolio-mass-dl`)
 9. Deactivate the virtual environment: `deactivate`
+
+## Instructions for running from source
+Unfortunately this seems to be the only way to get the program to work on Mac.
+
+Follow all the instructions under `Instructions for building from source`, just replace steps 7 and 8 with:
+- Run this command: `python3 main.py`
